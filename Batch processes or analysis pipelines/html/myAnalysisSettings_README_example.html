@@ -1,0 +1,622 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>myAnalysisSettings</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-08-10"><meta name="DC.source" content="myAnalysisSettings.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">S1 - What Analyses Do You Want</a></li><li><a href="#3">S2 - Folder Details (can be imported into workspace) - For Imaging Data</a></li><li><a href="#4">S3 - Other Files for Processing</a></li><li><a href="#5">S4 - Pre Processing</a></li><li><a href="#6">S5 - Identidying Behavioural Epochs</a></li><li><a href="#7">S6 - Activity Correlations</a></li><li><a href="#8">S7 - Activity PCA</a></li><li><a href="#9">S8 - Plotting</a></li></ul></div><pre class="codeinput"><span class="comment">%-------------------------------------------------------------------------%</span>
+<span class="comment">%                            INSTRUCTIONS                                 %</span>
+<span class="comment">%-------------------------------------------------------------------------%</span>
+<span class="comment">% 1. COPY this file in your current directory</span>
+<span class="comment">% 2. Save it as myAnalysisSettings.m .      DO NOT ERASE OR MODIFY the .template file !!!!!</span>
+<span class="comment">% 3. Set your parameters in myAnalysisSettings.m.</span>
+<span class="comment">% 4. If you want to use the default values, set load_defaults to TRUE. Then, it will NOT read any of your changed parameters, not a single one!</span>
+<span class="comment">% 5. Once you are happy, run the patch analysis pipeline, make some coffee and let it work for you :)</span>
+
+<span class="comment">% ----------------------------------------------------------------------- %</span>
+
+
+
+<span class="comment">% COMMENT THIS OUT if you want to keep current workspace variables</span>
+<span class="comment">% Eg if you want to rerun only part of the analysis w</span>
+clear <span class="string">variables</span>
+
+load_defaults          = false;
+partial                = false;
+user_file              = <span class="string">'setup_harsha.ini'</span>;
+</pre><h2 id="2">S1 - What Analyses Do You Want</h2><pre class="codeinput"><span class="comment">% 1. what measures/recordings?</span>
+exp.get.dff            = true;                                              <span class="comment">% (MC/Segmentation for patch data +) Normalisation to get dF/F</span>
+exp.get.speed          = true;                                              <span class="comment">% Read wheel encoder data</span>
+exp.get.videoMI        = true;                                              <span class="comment">% Use if video_parts are cropped -&gt; get Motion Index from Videos</span>
+exp.get.vidpca         = false;                                             <span class="comment">% Dim reduction of motion index/behaviour using PCA</span>
+exp.get.ephys          = false;                                             <span class="comment">% Simultaneously recorded ephys data (eg spikes)</span>
+
+
+<span class="comment">% 2. what analyses?</span>
+exp.get.beh_epoch      = true;                                              <span class="comment">% Different Behavioural Epochs</span>
+exp.get.corr           = true;                                              <span class="comment">% Pairwise and behavioural correlations of dF/F</span>
+exp.get.pca            = true;                                              <span class="comment">% PCA of dF/F (and background)</span>
+exp.get.spike_infer    = true;                                              <span class="comment">% Spikes inferred from dF/F (check user_file for algo, SPIKY by default)</span>
+exp.get.calibrate      = false;                                             <span class="comment">% calibrate spike inference in case of paired ephys and imaging</span>
+
+
+<span class="comment">% 3. what plots?</span>
+exp.plot.simple        = true;                                              <span class="comment">% Simple plot - (only mean patch,) dff traces and speed</span>
+exp.plot.beh           = true;                                              <span class="comment">% can add other beh info available - like mi, vid pca etc</span>
+exp.plot.puff          = true;                                              <span class="comment">% add air puffs</span>
+exp.plot.ephys         = false;                                             <span class="comment">% Ephys data (eg spikes)</span>
+exp.plot.inf_spike     = false;                                             <span class="comment">% Inferred spike trains</span>
+exp.plot.pw_corr       = false;                                             <span class="comment">% Pairwise correlation analysis results</span>
+exp.plot.beh_corr      = true;                                              <span class="comment">% dff and behaviour correlation analyses results</span>
+exp.plot.pca           = true;                                              <span class="comment">% PCA results</span>
+
+
+<span class="comment">% 4. what sessions?</span>
+exp.setup_type         = <span class="string">'golgi in vivo'</span>;                                   <span class="comment">% What kind of experiment - details are in user_file .ini</span>
+<span class="comment">% Session type names will be used as fields for all analyses and as file suffix:</span>
+exp.session_types      =  {<span class="string">'baseline'</span>, <span class="string">'AP'</span>, <span class="string">'AP2'</span>, <span class="keyword">...</span><span class="comment">                      Eg.        standard exp</span>
+                          <span class="string">'baseline2'</span>, <span class="string">'puff_out'</span>, <span class="string">'puff_paw'</span>, <span class="string">'baseline3'</span>, <span class="keyword">...</span><span class="comment">         control exp</span>
+                          <span class="string">'stim_100Hz'</span>, <span class="string">'stim_20Hz'</span>, <span class="keyword">...</span><span class="comment">                                ephys exp</span>
+                          <span class="string">'extra1'</span>, <span class="string">'extra2'</span>, <span class="string">'extra3'</span> };                   <span class="comment">% extras are buffers for additional session types/baselines.</span>
+<span class="comment">% You can add as many additional session types as you want.  Rename them to relevant descriptor.</span>
+exp.use_sessions       = [1  2 ];<span class="comment">% 3 4 5 6 7 8 9 10];                       % Which session types to use out of above 'session_types'</span>
+
+
+<span class="comment">% 5. what video segments for MI</span>
+exp.Video.Segments     = {<span class="string">'whiskpadR_ecam'</span>, <span class="string">'forepawR_ecam'</span>, <span class="string">'whiskpadR_ecam'</span> };  <span class="comment">% should be cropped tifs, and suffix indicates camera for timefile.</span>
+exp.video_split        = true;                                              <span class="comment">%if true, it reads tiff from VideoFolder\split sub-folder, but times from VideoFolder</span>
+<span class="comment">%--------- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+exp.Video.Pupil        = <span class="string">'pupil_bcam'</span>;                                      <span class="comment">% format/analysis to follow</span>
+<span class="comment">%</span>
+</pre><h2 id="3">S2 - Folder Details (can be imported into workspace) - For Imaging Data</h2><pre class="codeinput"><span class="comment">%------------- META DIRECTORIES -----------------</span>
+
+<span class="comment">% If true, read/write from local address</span>
+<span class="comment">% else from server - careful about writing to server!!!</span>
+exp.get.get_local       = true;                                             <span class="comment">% READ DATA from local/server?</span>
+exp.get.put_local       = true;                                             <span class="comment">% SAVE ANALYSIS results in local/server address?</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% IMP! Analyses will be saved in    &lt; \parent dir\ children dir\ exp.ID\  &gt;</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+<span class="comment">% to be put in .ini file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span class="comment">% ------------- PARENT DIRECTORIES -------------</span>
+<span class="comment">% These are 'PARENT DIRECTORIES' that contain all experiments/animals</span>
+<span class="comment">%        - local and server addresses</span>
+<span class="comment">%        - USUALLY CONSTANT for a single user.</span>
+exp.Folder.default      = true;                                             <span class="comment">% Read from user_file .ini file</span>
+<span class="keyword">if</span> ~exp.Folder.default
+exp.Folder.Backup       = <span class="string">'W:\Harsha\'</span>;                                     <span class="comment">% raw data server</span>
+exp.Folder.Local        = <span class="string">'D:\myStuff\data_copy_from_server\'</span>;              <span class="comment">% local copy of data</span>
+
+exp.Folder.Analysis     = <span class="string">'X:\Harsha\Golgi in vivo\'</span>;                       <span class="comment">% analysis directory on server</span>
+exp.Folder.AnalysisLocal= <span class="string">'D:\myStuff\data_copy_from_server\Golgi in vivo\'</span>;<span class="comment">% local copy of analysis</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">% ------------- CHILDREN DIRECTORIES -------------</span>
+<span class="comment">% These are 'children' directories WITHIN above parent directories.</span>
+<span class="comment">% Experiment Details - Can be superdirectory for animal/day/FOV</span>
+<span class="comment">%                    - to change across experiments.</span>
+exp.Folder.Session  = <span class="string">'HG 03\exp 02\'</span>;                                      <span class="comment">% which experiment/animal/session folder?</span>
+
+
+<span class="comment">% ------------- experiment ID -------------</span>
+exp.ID              = <span class="string">'180409_11_45_58'</span>;                                    <span class="comment">% Unique ID - Usually represents baseline/ROI/zstack used.</span>
+                                                                            <span class="comment">% Can be any arbitrary string</span>
+                                                                            <span class="comment">% RECOMMENDED: make it related to session or baseline expt information, or experiment key in your database</span>
+<span class="comment">% -------------  Optional -------------</span>
+exp.AnimalID        = 1003;                                                 <span class="comment">% UNNN, where U = User Number, NNN = Animal number(Harsha's scheme)</span>
+                                                                            <span class="comment">% 1003= HG 3 || U=1 -&gt; Harsha; U=2 -&gt; Fred</span>
+exp.Animal          = <span class="string">'HG 03 Caroline Herschel'</span>;                            <span class="comment">% Animal ID as string -&gt; Name, ID, whatever your naming scheme</span>
+exp.user            = <span class="string">'Harsha'</span>;                                             <span class="comment">% Who did the experiment</span>
+exp.Date            = exp.ID(1:6);                                          <span class="comment">% Date of experiment</span>
+
+
+<span class="comment">%----------- SESSION DIRECTORIES -----------------------</span>
+<span class="comment">% &lt;&lt; REMEMBER:   Setup folders for whichever experiments you are using !!!</span>
+
+<span class="comment">% IMAGING DATA                                                              (including additional session types)</span>
+<span class="comment">% Data will be read from &lt; \parent dir\ children dir\ exp.Folder.'session' &gt;</span>
+exp.Folder.baseline         = <span class="string">'180409_11_45_58 FunctAcq'</span>;                   <span class="comment">%baselines can be different for different exp types</span>
+exp.Folder.AP               = <span class="string">'180409_11_55_20 FunctAcq'</span>;
+exp.Folder.AP2              = <span class="string">''</span>;
+exp.Folder.baseline2        = <span class="string">''</span>;
+exp.Folder.puff_out         = <span class="string">''</span>;
+exp.Folder.puff_paw         = <span class="string">''</span>;
+exp.Folder.baseline3        = <span class="string">''</span>;
+exp.Folder.stim_100Hz       = <span class="string">''</span>;
+exp.Folder.stim_20Hz        = <span class="string">''</span>;
+exp.Folder.extra1           = <span class="string">''</span>;
+<span class="comment">% ADD exp.Folder.NewSessionName for any additional session type 'NewSessionName' you use.</span>
+
+
+<span class="comment">% VIDEO DATA</span>
+<span class="comment">% Data will be read from &lt; \parent dir\ children dir\ exp.VideoFolder.'session' &gt;</span>
+exp.VideoFolder.baseline    = <span class="string">'180409_11_52_30 VidRec\180409_11_52_30 VidRec'</span>;
+exp.VideoFolder.AP          = <span class="string">'180409_11_56_43 VidRec\180409_11_56_43 VidRec'</span>;
+exp.VideoFolder.AP2         = <span class="string">''</span>;
+exp.VideoFolder.baseline2   = <span class="string">''</span>;
+exp.VideoFolder.puff_out    = <span class="string">''</span>;
+exp.VideoFolder.puff_paw    = <span class="string">''</span>;
+exp.VideoFolder.baseline3   = <span class="string">''</span>;
+exp.VideoFolder.extra1      = <span class="string">''</span>;
+
+
+<span class="comment">% EPHYS DATA</span>
+<span class="comment">% Data will be read from &lt; \parent dir\ children dir\ exp.EphysFolder.'session' &gt;</span>
+exp.EphysFolder.baseline   = <span class="string">''</span>;
+exp.EphysFolder.stim_100Hz = <span class="string">''</span>;
+exp.EphysFolder.stim_20Hz  = <span class="string">''</span>;
+</pre><h2 id="4">S3 - Other Files for Processing</h2><pre class="codeinput">exp.Use.Ref           = <span class="string">''</span>;                                                 <span class="comment">% if patches are to be aligned to REF FROM ELSEWHERE - give &lt;&lt; complete path &gt;&gt; to a .mat file</span>
+                                                                            <span class="comment">% Needs to be a workspace with all relevant variables, with at least a Structure called 'MC' with field 'Ref'</span>
+exp.Use.Masks         = <span class="string">''</span>;                                                 <span class="comment">% if particular masks are to be used - give complete path to .mat file</span>
+
+exp.Use.Grouping      = <span class="string">''</span>;                                                 <span class="comment">% If multiple ROI belong to same cell - can be cell array of integers (for only somatic patches) OR</span>
+                                                                            <span class="comment">% Struct array with fields soma, dend, axon, background, upper, lower, other</span>
+</pre><h2 id="5">S4 - Pre Processing</h2><pre class="codeinput"><span class="comment">% raw data extraction</span>
+Basic.ROI_type              = <span class="string">'patch'</span>; <span class="comment">% or 'poi', 'plane'                  % What kind of data did you record?</span>
+
+Basic.ROIs                = 0;                                              <span class="comment">% which ROI to keep for analysis;    0 = All, else give array with ROI numbers</span>
+Basic.Groups              = 0;                                              <span class="comment">% Which groups to keep for analysis; 0 = all</span>
+Basic.trials              = 0;                                              <span class="comment">% Which trials to keep for analysis; 0 = all</span>
+
+Basic.continuous_time     = true;                                           <span class="comment">% Single continuous time - computed based on cycle lengths* number of timepoints</span>
+                                                                            <span class="comment">% inter-trial time can be added if speed file is available.</span>
+                                                                            <span class="comment">% If false, each trial is considered a repetition</span>
+<span class="comment">% motion correction (for patches and plane timeseries)</span>
+Basic.MC                  = true;                                           <span class="comment">% If true, corr-based motion correction will be applied to planes/patches before any segmentation/normalisation</span>
+Basic.MC_select_ROI       = true;                                           <span class="comment">% If true, user input is required at the time of execution to select ROI used for MC. For patches, that is patch#, for planes, user can draw rectangles.</span>
+                                                                            <span class="comment">% Can be set to an array (for patch#) or 5-column matrix (each row is a rectangle - [plane #, x1, xn, y1, yn]) instead of boolean value</span>
+                                                                            <span class="comment">% If false, all patches are used for MC - can be memory intensive!!</span>
+Basic.MC_max_disp         = 8;                                              <span class="comment">% Max displacement allowed in any MC-frame; If optimal disp&gt; max_disp, F = NaN in that frame</span>
+
+
+<span class="comment">% segmentation/averaging (for patches and plane timeseries)</span>
+Basic.patch_avg           = true;                                           <span class="comment">% If true, mask(s) is applied to patch, else each pixel is normalised independently.</span>
+Basic.patch_multiple      = false;                                          <span class="comment">% If true, multiple masks are kept for a single patch(plane)</span>
+
+Basic.get_background      = true;                                           <span class="comment">% Identify background_per_patch.</span>
+Basic.ROI_background      = [];                                             <span class="comment">% Array of ROI numbers that were put as backgrounds</span>
+
+<span class="comment">% normalisation and smoothing</span>
+Basic.norm_baseline       = <span class="string">'percentile'</span>;    <span class="comment">% or 'interval'                % How to compute F0?</span>
+Basic.base_interval       = [];<span class="comment">%ms                                          % Time interval considered as baseline, and its time-averaged F = F0</span>
+Basic.base_percentile     = 10;                                             <span class="comment">% percentile to fet F0 per trace</span>
+Basic.base_invert         = false;                                          <span class="comment">% If true, events are assumed to be negative, and hence normalisation is changed accordingly.</span>
+                                                                            <span class="comment">% Top base_percentile rather than lowest base_percentile is considered as baseline</span>
+Basic.baseline_pertrial   = false;                                          <span class="comment">% if true, each trial has its own baseline</span>
+
+Basic.smooth_scale        = 100;<span class="comment">%ms                                         % Filter size for smoothing normalised traces (boxcar_filter)</span>
+Basic.smooth_causal       = false;                                          <span class="comment">% If true, filter is causal i.e [t-n : t] rather than [t-n/2 : t+n/2]</span>
+
+<span class="comment">% for ephys data</span>
+Basic.ephys_spikes        = <span class="string">'cell-attached'</span>;                                <span class="comment">% If not empty, spikes are extracted from ephys data depending on the recording method specified</span>
+</pre><h2 id="6">S5 - Identidying Behavioural Epochs</h2><pre class="codeinput"><span class="comment">% Parameters for:</span>
+
+<span class="comment">% 1. Air Puff times</span>
+pufftime                    = [];
+Puff.start                  = 2000; <span class="comment">%ms                                     % Puff trigger time every trial ( scalar or array with time for each trial)</span>
+Puff.dur                    = 100;  <span class="comment">%ms                                     % Puff duration                 ( scalar or array with time for each trial)</span>
+
+<span class="comment">% 2. Locomotion Periods using speed</span>
+Loco.use_absolute          = true;                                          <span class="comment">% use absolute value of encoder data to find 'locomotion'?</span>
+Loco.min_period_separation = 500;    <span class="comment">% ms                                   % min separation between 2 identified beh periods, or else they are merged (including time between)</span>
+Loco.min_period_size       = 3000;   <span class="comment">% ms                                   % min length of identified beh period</span>
+Loco.on_threshold          = 0.8;                                           <span class="comment">% threshold of moving average for start of beh period</span>
+Loco.off_threshold         = 0.2;                                           <span class="comment">% threshold of moving average for end of beh period</span>
+Loco.Avg_window            = 100;    <span class="comment">% ms                                   % window for moving average</span>
+
+<span class="comment">% 3. Whisking Periods using Motion Index</span>
+Whisk.use_absolute          = true;
+Whisk.min_period_separation = 500;    <span class="comment">% ms</span>
+Whisk.min_period_size       = 1000;   <span class="comment">% ms</span>
+Whisk.on_threshold          = 0.12;
+Whisk.off_threshold         = 0.1;
+Whisk.Avg_window            = 50;    <span class="comment">% ms</span>
+Whisk.vidseg                = <span class="string">'whiskpadR_ecam'</span>;                             <span class="comment">% which whisker video to use for whisking periods (in case of multiple videos or tracking)</span>
+</pre><h2 id="7">S6 - Activity Correlations</h2><pre class="codeinput"><span class="comment">% PAIRWISE correlations for dF/F:  &lt; Corr.pw.params &gt;</span>
+<span class="comment">% Computed for total trace per session, and also during different</span>
+<span class="comment">% behavioural periods</span>
+Corr.pw.params.ds_rate             = 50;           <span class="comment">% Hz                     % Rate at which all data is sampled to compute pairwise correlations.</span>
+                                                                            <span class="comment">% Time bin of correlation is effectively 1/ds_rate</span>
+Corr.pw.params.maxlag              = 2000;         <span class="comment">% ms                     % Maximum lag to compute cross correlation for</span>
+Corr.pw.params.nshuffle            = 500;                                   <span class="comment">% No. of shuffles to compute null distribution of correlation coefficients</span>
+Corr.pw.params.loco.extratime      = 500;          <span class="comment">% ms                     % Extra time around each identified beh period (locomotion here) to use for computing correlation for each beh period</span>
+                                                                            <span class="comment">% Can be scalar (same extra time before and after beh period) OR array: [before after] extra time</span>
+Corr.pw.params.whisk.extratime     = 500;          <span class="comment">% ms                     % Extra time around whisking periods</span>
+Corr.pw.params.puff.extratime      = [200 1000];   <span class="comment">% ms                     % Extratime around air puff period</span>
+
+<span class="comment">% WITH BEHAVIOUR :                 &lt; Corr.beh.params &gt;</span>
+<span class="comment">% correlation between dF/F and behavioural trace</span>
+<span class="comment">% Computed for total trace ONLY (for now)</span>
+Corr.beh.params.ds_rate            = 10;           <span class="comment">% Hz</span>
+Corr.beh.params.maxlag             = 6000;         <span class="comment">% ms</span>
+Corr.beh.params.nshuffle           = 500;
+</pre><h2 id="8">S7 - Activity PCA</h2><pre class="codeinput">PCA.numComp                  = 10;                                           <span class="comment">% Max number of population dF/F PCs to keep</span>
+
+<span class="comment">% Behavioural correlations ( of top numComp PCs with behavioural traces</span>
+PC_Corr.params.ds_rate       = 20;
+PC_Corr.params.maxlag        = 2000;
+PC_Corr.params.nshuffle      = 500;
+</pre><h2 id="9">S8 - Plotting</h2><pre class="codeinput"><span class="comment">% Traces</span>
+PlotParams.two_col          = true;
+PlotParams.scale            = 30;                                           <span class="comment">% 0 if it should be determined automatically</span>
+PlotParams.graylim          = [0 500];                                      <span class="comment">% 0 if it should be determined automatically</span>
+
+
+<span class="comment">% PCA results</span>
+PlotParams.PCA_expVar       = {<span class="string">'baseline'</span>, <span class="string">'all'</span> };                             <span class="comment">% which sessions?</span>
+PlotParams.PCA_trace        = {<span class="string">'baseline'</span>, <span class="string">'all'</span> };                             <span class="comment">% Top n components of which session</span>
+PlotParams.nComp            = 5;                                                <span class="comment">% How many components?</span>
+
+<span class="comment">% Correlation plots</span>
+PlotParams.corrstyle        = <span class="string">'trace'</span>;  <span class="comment">% or 'imgsc'</span>
+<span class="comment">% of individual ROI</span>
+PlotParams.soma_sess        = { { <span class="string">'baseline'</span>, <span class="string">'whisk'</span>, <span class="string">'loco'</span>, <span class="string">'pupil'</span>      }, <span class="keyword">...</span><span class="comment"> { {'session1', 'beh1','beh2#}, {'session2', 'beh1', ..}, {'session3', 'beh1',..}, ... }</span>
+                                { <span class="string">'AP'</span>, <span class="string">'whisk'</span>, <span class="string">'ap_whisk'</span>, <span class="string">'loco'</span>, <span class="string">'pupil'</span>}<span class="keyword">...</span><span class="comment">   Plot somatic corr with beh1,2 in session 1, with beh1.. in session 2, with beh1... in session3 ...</span>
+                            };
+<span class="comment">% of top PC components</span>
+PlotParams.PCA_sess         = { { <span class="string">'baseline'</span>, <span class="string">'whisk'</span>, <span class="string">'loco'</span>, <span class="string">'pupil'</span>      }, <span class="keyword">...</span><span class="comment"> { {'session1', 'beh1','beh2#}, {'session2', 'beh1', ..}, {'session3', 'beh1',..}, ... }</span>
+                                { <span class="string">'AP'</span>, <span class="string">'whisk'</span>, <span class="string">'ap_whisk'</span>, <span class="string">'loco'</span>, <span class="string">'pupil'</span>}<span class="keyword">...</span><span class="comment">   Plot somatic corr with beh1,2 in session 1, with beh1.. in session 2, with beh1... in session3 ...</span>
+                            };
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+%                            INSTRUCTIONS                                 %
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+% 1. COPY this file in your current directory
+% 2. Save it as myAnalysisSettings.m .      DO NOT ERASE OR MODIFY the .template file !!!!!
+% 3. Set your parameters in myAnalysisSettings.m. 
+% 4. If you want to use the default values, set load_defaults to TRUE. Then, it will NOT read any of your changed parameters, not a single one!
+% 5. Once you are happy, run the patch analysis pipeline, make some coffee and let it work for you :)
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- %
+
+
+
+% COMMENT THIS OUT if you want to keep current workspace variables
+% Eg if you want to rerun only part of the analysis w
+clear variables                                                                                                                                        
+
+load_defaults          = false;
+partial                = false;
+user_file              = 'setup_harsha.ini';
+
+
+
+
+%% S1 - What Analyses Do You Want
+
+% 1. what measures/recordings?        
+exp.get.dff            = true;                                              % (MC/Segmentation for patch data +) Normalisation to get dF/F
+exp.get.speed          = true;                                              % Read wheel encoder data
+exp.get.videoMI        = true;                                              % Use if video_parts are cropped -> get Motion Index from Videos
+exp.get.vidpca         = false;                                             % Dim reduction of motion index/behaviour using PCA
+exp.get.ephys          = false;                                             % Simultaneously recorded ephys data (eg spikes)
+
+
+% 2. what analyses?
+exp.get.beh_epoch      = true;                                              % Different Behavioural Epochs
+exp.get.corr           = true;                                              % Pairwise and behavioural correlations of dF/F
+exp.get.pca            = true;                                              % PCA of dF/F (and background)
+exp.get.spike_infer    = true;                                              % Spikes inferred from dF/F (check user_file for algo, SPIKY by default)
+exp.get.calibrate      = false;                                             % calibrate spike inference in case of paired ephys and imaging
+
+
+% 3. what plots?
+exp.plot.simple        = true;                                              % Simple plot - (only mean patch,) dff traces and speed
+exp.plot.beh           = true;                                              % can add other beh info available - like mi, vid pca etc
+exp.plot.puff          = true;                                              % add air puffs
+exp.plot.ephys         = false;                                             % Ephys data (eg spikes)
+exp.plot.inf_spike     = false;                                             % Inferred spike trains
+exp.plot.pw_corr       = false;                                             % Pairwise correlation analysis results
+exp.plot.beh_corr      = true;                                              % dff and behaviour correlation analyses results
+exp.plot.pca           = true;                                              % PCA results
+
+
+% 4. what sessions?                                          
+exp.setup_type         = 'golgi in vivo';                                   % What kind of experiment - details are in user_file .ini
+% Session type names will be used as fields for all analyses and as file suffix:
+exp.session_types      =  {'baseline', 'AP', 'AP2', ...                      Eg.        standard exp
+                          'baseline2', 'puff_out', 'puff_paw', 'baseline3', ...         control exp
+                          'stim_100Hz', 'stim_20Hz', ...                                ephys exp
+                          'extra1', 'extra2', 'extra3' };                   % extras are buffers for additional session types/baselines. 
+% You can add as many additional session types as you want.  Rename them to relevant descriptor.                                         
+exp.use_sessions       = [1  2 ];% 3 4 5 6 7 8 9 10];                       % Which session types to use out of above 'session_types'
+
+
+% 5. what video segments for MI
+exp.Video.Segments     = {'whiskpadR_ecam', 'forepawR_ecam', 'whiskpadR_ecam' };  % should be cropped tifs, and suffix indicates camera for timefile.
+exp.video_split        = true;                                              %if true, it reads tiff from VideoFolder\split sub-folder, but times from VideoFolder
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+exp.Video.Pupil        = 'pupil_bcam';                                      % format/analysis to follow
+%
+
+
+
+%% S2 - Folder Details (can be imported into workspace) - For Imaging Data
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- META DIRECTORIES REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+
+% If true, read/write from local address
+% else from server - careful about writing to server!!!
+exp.get.get_local       = true;                                             % READ DATA from local/server?                  
+exp.get.put_local       = true;                                             % SAVE ANALYSIS results in local/server address?
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% IMP! Analyses will be saved in    < \parent dir\ children dir\ exp.ID\  >
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+% to be put in .ini file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PARENT DIRECTORIES REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% These are 'PARENT DIRECTORIES' that contain all experiments/animals
+%        - local and server addresses 
+%        - USUALLY CONSTANT for a single user.
+exp.Folder.default      = true;                                             % Read from user_file .ini file
+if ~exp.Folder.default
+exp.Folder.Backup       = 'W:\Harsha\';                                     % raw data server
+exp.Folder.Local        = 'D:\myStuff\data_copy_from_server\';              % local copy of data
+
+exp.Folder.Analysis     = 'X:\Harsha\Golgi in vivo\';                       % analysis directory on server
+exp.Folder.AnalysisLocal= 'D:\myStuff\data_copy_from_server\Golgi in vivo\';% local copy of analysis
+end
+
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- CHILDREN DIRECTORIES REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% These are 'children' directories WITHIN above parent directories.
+% Experiment Details - Can be superdirectory for animal/day/FOV
+%                    - to change across experiments. 
+exp.Folder.Session  = 'HG 03\exp 02\';                                      % which experiment/animal/session folder?
+
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- experiment ID REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+exp.ID              = '180409_11_45_58';                                    % Unique ID - Usually represents baseline/ROI/zstack used.
+                                                                            % Can be any arbitrary string
+                                                                            % RECOMMENDED: make it related to session or baseline expt information, or experiment key in your database
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-  Optional REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- 
+exp.AnimalID        = 1003;                                                 % UNNN, where U = User Number, NNN = Animal number(Harsha's scheme)
+                                                                            % 1003= HG 3 || U=1 -> Harsha; U=2 -> Fred 
+exp.Animal          = 'HG 03 Caroline Herschel';                            % Animal ID as string -> Name, ID, whatever your naming scheme
+exp.user            = 'Harsha';                                             % Who did the experiment
+exp.Date            = exp.ID(1:6);                                          % Date of experiment
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- SESSION DIRECTORIES REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% << REMEMBER:   Setup folders for whichever experiments you are using !!!
+
+% IMAGING DATA                                                              (including additional session types)
+% Data will be read from < \parent dir\ children dir\ exp.Folder.'session' >
+exp.Folder.baseline         = '180409_11_45_58 FunctAcq';                   %baselines can be different for different exp types
+exp.Folder.AP               = '180409_11_55_20 FunctAcq';
+exp.Folder.AP2              = '';   
+exp.Folder.baseline2        = '';  
+exp.Folder.puff_out         = '';  
+exp.Folder.puff_paw         = '';   
+exp.Folder.baseline3        = '';   
+exp.Folder.stim_100Hz       = '';
+exp.Folder.stim_20Hz        = '';
+exp.Folder.extra1           = '';
+% ADD exp.Folder.NewSessionName for any additional session type 'NewSessionName' you use.
+
+
+% VIDEO DATA
+% Data will be read from < \parent dir\ children dir\ exp.VideoFolder.'session' >
+exp.VideoFolder.baseline    = '180409_11_52_30 VidRec\180409_11_52_30 VidRec';
+exp.VideoFolder.AP          = '180409_11_56_43 VidRec\180409_11_56_43 VidRec';
+exp.VideoFolder.AP2         = '';
+exp.VideoFolder.baseline2   = '';
+exp.VideoFolder.puff_out    = '';
+exp.VideoFolder.puff_paw    = '';
+exp.VideoFolder.baseline3   = '';
+exp.VideoFolder.extra1      = '';
+
+
+% EPHYS DATA
+% Data will be read from < \parent dir\ children dir\ exp.EphysFolder.'session' >
+exp.EphysFolder.baseline   = '';
+exp.EphysFolder.stim_100Hz = '';
+exp.EphysFolder.stim_20Hz  = '';
+
+
+
+%% S3 - Other Files for Processing
+exp.Use.Ref           = '';                                                 % if patches are to be aligned to REF FROM ELSEWHERE - give << complete path >> to a .mat file 
+                                                                            % Needs to be a workspace with all relevant variables, with at least a Structure called 'MC' with field 'Ref'
+exp.Use.Masks         = '';                                                 % if particular masks are to be used - give complete path to .mat file
+                                                                            
+exp.Use.Grouping      = '';                                                 % If multiple ROI belong to same cell - can be cell array of integers (for only somatic patches) OR
+                                                                            % Struct array with fields soma, dend, axon, background, upper, lower, other
+
+                                                                            
+                                                                            
+%% S4 - Pre Processing 
+
+% raw data extraction
+Basic.ROI_type              = 'patch'; % or 'poi', 'plane'                  % What kind of data did you record?
+
+Basic.ROIs                = 0;                                              % which ROI to keep for analysis;    0 = All, else give array with ROI numbers
+Basic.Groups              = 0;                                              % Which groups to keep for analysis; 0 = all
+Basic.trials              = 0;                                              % Which trials to keep for analysis; 0 = all
+
+Basic.continuous_time     = true;                                           % Single continuous time - computed based on cycle lengths* number of timepoints
+                                                                            % inter-trial time can be added if speed file is available.
+                                                                            % If false, each trial is considered a repetition
+% motion correction (for patches and plane timeseries)
+Basic.MC                  = true;                                           % If true, corr-based motion correction will be applied to planes/patches before any segmentation/normalisation
+Basic.MC_select_ROI       = true;                                           % If true, user input is required at the time of execution to select ROI used for MC. For patches, that is patch#, for planes, user can draw rectangles.
+                                                                            % Can be set to an array (for patch#) or 5-column matrix (each row is a rectangle - [plane #, x1, xn, y1, yn]) instead of boolean value
+                                                                            % If false, all patches are used for MC - can be memory intensive!!
+Basic.MC_max_disp         = 8;                                              % Max displacement allowed in any MC-frame; If optimal disp> max_disp, F = NaN in that frame                                                                            
+
+
+% segmentation/averaging (for patches and plane timeseries)
+Basic.patch_avg           = true;                                           % If true, mask(s) is applied to patch, else each pixel is normalised independently.
+Basic.patch_multiple      = false;                                          % If true, multiple masks are kept for a single patch(plane)
+
+Basic.get_background      = true;                                           % Identify background_per_patch.
+Basic.ROI_background      = [];                                             % Array of ROI numbers that were put as backgrounds
+
+% normalisation and smoothing
+Basic.norm_baseline       = 'percentile';    % or 'interval'                % How to compute F0?
+Basic.base_interval       = [];%ms                                          % Time interval considered as baseline, and its time-averaged F = F0
+Basic.base_percentile     = 10;                                             % percentile to fet F0 per trace
+Basic.base_invert         = false;                                          % If true, events are assumed to be negative, and hence normalisation is changed accordingly. 
+                                                                            % Top base_percentile rather than lowest base_percentile is considered as baseline
+Basic.baseline_pertrial   = false;                                          % if true, each trial has its own baseline
+
+Basic.smooth_scale        = 100;%ms                                         % Filter size for smoothing normalised traces (boxcar_filter)
+Basic.smooth_causal       = false;                                          % If true, filter is causal i.e [t-n : t] rather than [t-n/2 : t+n/2]
+
+% for ephys data
+Basic.ephys_spikes        = 'cell-attached';                                % If not empty, spikes are extracted from ephys data depending on the recording method specified
+
+
+
+%% S5 - Identidying Behavioural Epochs
+
+% Parameters for:
+
+% 1. Air Puff times
+pufftime                    = [];
+Puff.start                  = 2000; %ms                                     % Puff trigger time every trial ( scalar or array with time for each trial)
+Puff.dur                    = 100;  %ms                                     % Puff duration                 ( scalar or array with time for each trial)
+
+% 2. Locomotion Periods using speed
+Loco.use_absolute          = true;                                          % use absolute value of encoder data to find 'locomotion'?
+Loco.min_period_separation = 500;    % ms                                   % min separation between 2 identified beh periods, or else they are merged (including time between)
+Loco.min_period_size       = 3000;   % ms                                   % min length of identified beh period
+Loco.on_threshold          = 0.8;                                           % threshold of moving average for start of beh period
+Loco.off_threshold         = 0.2;                                           % threshold of moving average for end of beh period
+Loco.Avg_window            = 100;    % ms                                   % window for moving average
+
+% 3. Whisking Periods using Motion Index
+Whisk.use_absolute          = true;
+Whisk.min_period_separation = 500;    % ms
+Whisk.min_period_size       = 1000;   % ms
+Whisk.on_threshold          = 0.12;
+Whisk.off_threshold         = 0.1;
+Whisk.Avg_window            = 50;    % ms
+Whisk.vidseg                = 'whiskpadR_ecam';                             % which whisker video to use for whisking periods (in case of multiple videos or tracking)
+
+
+%% S6 - Activity Correlations
+
+% PAIRWISE correlations for dF/F:  < Corr.pw.params >
+% Computed for total trace per session, and also during different
+% behavioural periods
+Corr.pw.params.ds_rate             = 50;           % Hz                     % Rate at which all data is sampled to compute pairwise correlations. 
+                                                                            % Time bin of correlation is effectively 1/ds_rate
+Corr.pw.params.maxlag              = 2000;         % ms                     % Maximum lag to compute cross correlation for
+Corr.pw.params.nshuffle            = 500;                                   % No. of shuffles to compute null distribution of correlation coefficients
+Corr.pw.params.loco.extratime      = 500;          % ms                     % Extra time around each identified beh period (locomotion here) to use for computing correlation for each beh period
+                                                                            % Can be scalar (same extra time before and after beh period) OR array: [before after] extra time
+Corr.pw.params.whisk.extratime     = 500;          % ms                     % Extra time around whisking periods
+Corr.pw.params.puff.extratime      = [200 1000];   % ms                     % Extratime around air puff period
+
+% WITH BEHAVIOUR :                 < Corr.beh.params >
+% correlation between dF/F and behavioural trace
+% Computed for total trace ONLY (for now)
+Corr.beh.params.ds_rate            = 10;           % Hz
+Corr.beh.params.maxlag             = 6000;         % ms
+Corr.beh.params.nshuffle           = 500;
+
+%% S7 - Activity PCA
+
+PCA.numComp                  = 10;                                           % Max number of population dF/F PCs to keep 
+
+% Behavioural correlations ( of top numComp PCs with behavioural traces
+PC_Corr.params.ds_rate       = 20;
+PC_Corr.params.maxlag        = 2000;
+PC_Corr.params.nshuffle      = 500;
+
+
+%% S8 - Plotting
+
+% Traces
+PlotParams.two_col          = true;
+PlotParams.scale            = 30;                                           % 0 if it should be determined automatically
+PlotParams.graylim          = [0 500];                                      % 0 if it should be determined automatically
+
+
+% PCA results
+PlotParams.PCA_expVar       = {'baseline', 'all' };                             % which sessions?
+PlotParams.PCA_trace        = {'baseline', 'all' };                             % Top n components of which session
+PlotParams.nComp            = 5;                                                % How many components?
+
+% Correlation plots
+PlotParams.corrstyle        = 'trace';  % or 'imgsc'
+% of individual ROI
+PlotParams.soma_sess        = { { 'baseline', 'whisk', 'loco', 'pupil'      }, ... { {'session1', 'beh1','beh2#}, {'session2', 'beh1', ..}, {'session3', 'beh1',..}, ... }
+                                { 'AP', 'whisk', 'ap_whisk', 'loco', 'pupil'}...   Plot somatic corr with beh1,2 in session 1, with beh1.. in session 2, with beh1... in session3 ...
+                            };                                                   
+% of top PC components
+PlotParams.PCA_sess         = { { 'baseline', 'whisk', 'loco', 'pupil'      }, ... { {'session1', 'beh1','beh2#}, {'session2', 'beh1', ..}, {'session3', 'beh1',..}, ... }
+                                { 'AP', 'whisk', 'ap_whisk', 'loco', 'pupil'}...   Plot somatic corr with beh1,2 in session 1, with beh1.. in session 2, with beh1... in session3 ...
+                            };                                                   
+
+
+##### SOURCE END #####
+--></body></html>
