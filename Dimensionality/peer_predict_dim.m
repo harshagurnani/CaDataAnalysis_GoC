@@ -30,6 +30,8 @@ function [ num_dim, Test_t, y_est, res, U_x, U_y, y_est_train, res_train ] = pee
 %   Author: Harsha G.
 %   08-10-2018
 
+% Modified by Alex 2019/07/01
+
 %   Logic of the code:
 %   F_1 = [F_x1; F_y1] = Activity in training half
 %   F_2 = [F_x2; F_y2] = Activity in test half
@@ -68,21 +70,27 @@ function [ num_dim, Test_t, y_est, res, U_x, U_y, y_est_train, res_train ] = pee
     
     
     % Predict for different subspaces of the decomposition
-    if isempty(num_dim), num_dim = 1:size(U_x,2); end
+    if isempty(num_dim)
+        num_dim = 1:size(U_x,2); 
+    end
     nIters = length(num_dim);
-    if iscolumn(num_dim), num_dim = num_dim'; end
+    if iscolumn(num_dim)
+        num_dim = num_dim'; 
+    end
     [y_est_train, y_est] = deal(cell( nIters, 1)); 
     [res, res_train] = deal(nan( nY, nIters));
     
-    % need to check U_x'*U_x is nearly diagonal, only then is the approx
-    % valid
-    for jj=1:nIters
+    jj = 1; stop = 0;
+    while jj <= nIters && stop == 0
         ndim = num_dim(jj);
         y_est{jj} = U_y(:, 1:ndim) * ( U_x(:, 1:ndim) / (U_x(:, 1:ndim)'*U_x(:, 1:ndim)) )' * x_test;
         y_est_train{jj}  = U_y(:, 1:ndim) * ( U_x(:, 1:ndim) / (U_x(:, 1:ndim)'*U_x(:, 1:ndim)) )' * x_train;
         res(1:nY, jj) = 1 - (var( y_test-y_est{jj}, [],2))./var(y_test,[],2);
         res_train(1:nY, jj) = 1 - (var( y_train-y_est_train{jj}, [],2))./var(y_train,[],2);
+        if mean(res_train(:,jj)) < 0
+            stop = 1;
+        end
+        jj = jj + 1;
     end
-    
     
 end
